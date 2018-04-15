@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+
+{% block header %}
+    <meta name="Description" content="行业数据">
+    <title>热点新闻</title>
+<style>
+    {#.tabItem{#}
+    {##}
+    {#}#}
+
+</style>
+{% end %}
+
+
+{% block menu_chart %}
+    <div id="container">
+        <div class="main-box">
+            <div class="left-menu">
+                <ul class="menu-list">
+                    <li>
+                        <a onclick="req_news('网贷之家');">网贷之家
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="req_news('第一财经');">第一财经
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="req_news('中证网');">中证网</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="news">
+        <div id="news_list" class="new">
+            {% for data in chart_data %}
+            <li class="rank">
+                <a href={{ data.values()[0] }}>{{ data.keys()[0] }}</a>
+{#                <a style="font-size: 20px; " href={{ data.values()[0] }}>{{ data.keys()[0] }}</a>#}
+            </li>
+            {% end %}
+        </div>
+    </div>
+
+    <script>
+        function req_news(new_type) {
+            $.post("/ajax",{message: new_type, web: 'new'}, function(data,status){
+                if (status == "success") {
+                    var p = document.getElementById("news");
+                    var c = document.getElementById("news_list");
+                    var n = document.createElement('div');
+                    n.setAttribute("class", "new");
+                    for (var d in data["data"]) {
+                        var l = document.createElement('li');
+                        l.setAttribute("class", "rank");
+                        var a = document.createElement('a');
+                        for (var k in data["data"][d]) {
+                            a.text = k;
+                            a.href = data["data"][d][k];
+                        }
+                        l.appendChild(a);
+                        n.appendChild(l);
+                    }
+                    p.removeChild(c);
+                    n.setAttribute("id", "news_list");
+                    p.appendChild(n);
+                  }
+                else
+                {
+                    alert("Ajax 失败");
+                }
+            });
+        }
+    </script>
+{% end %}
+
+
+

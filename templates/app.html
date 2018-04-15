@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <meta name="Description" content="行业数据">
+    <title>app数据</title>
+{% end %}
+
+
+{% block menu_chart %}
+<div class="page-header">
+    <h1>任务列表</h1>
+    <div class="contain">
+        <div class="table-responsive">
+        <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>APP</th>
+                <th>所属行业</th>
+                <th>所属行业</th>
+                <th>开发商</th>
+                <th>开发商全名</th>
+                <th>月活跃量</th>
+                <th>月活跃率</th>
+                <th>日活跃量</th>
+                <th>日活跃率</th>
+            </tr>
+        </thead>
+        {% for data in chart_data %}
+
+        <tbody>
+            <tr>
+                <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis; align-content: center">{{ data['rank'] }}</td>
+                <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis; align-content: center">{{ data['appName'] }}</td>
+                <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ data['cateName'] or ''  }}</td>
+                <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ data['tradeName'] or ''}}</td>
+                <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ data['developCompanyAbbr'] or ''  }}</td>
+                <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ data['developCompanyFullName'] or '' }}</td>
+                <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ '%0.2f'%data['monthActiveNums'] if data['monthActiveNums'] else '' }}</td>
+                <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ '%0.2f'%(float(data['monthActiveNumsRatio'])*100)+'%' if data['monthActiveNumsRatio'] else '' }}</td>
+                <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ '%0.2f'%data['dayActiveNums'] if data['dayActiveNums'] else ''  }}</td>
+                <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ '%0.2f'%(float(data['dayActiveNumsRatio'])*100)+'%' if data['dayActiveNumsRatio'] else '' }}</td>
+            </tr>
+        </tbody>
+            {% end %}
+        </table>
+    </div>
+    </div>
+</div>
+{% end %}

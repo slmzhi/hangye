@@ -1,0 +1,42 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>行业数据</title>
+    <script src="{{ static_url('js/loan.js') }}" type="application/javascript"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js">
+</script>
+    <!-- <script src="{{ static_url('js/jquery-2.1.0.min.js') }}" type="application/javascript"></script> -->
+    <link rel="stylesheet" type="text/css" href="{{ static_url('css/loan.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ static_url('css/reset.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ static_url('css/style.css') }}">
+    
+    <script type="text/javascript">
+    $(document).ready(function(){
+       $("a").click(function(){
+        alert('ok')
+  });
+});
+    </script>
+    </head>
+  
+<body>
+	<a>成交人气指数2</a>
+	<div id="container">
+      <div class="main-box">
+        <div class="left-menu">
+          <ul class="menu-list">
+			<li>
+			  <a>成交人气指数
+			  </a>
+			</li>
+		  </ul>
+        </div>
+       </div>
+    </div>
+    <div id="main"></div>
+    <script type="text/javascript">myCharts({% raw chart_data %})</script>
+</body>
+    

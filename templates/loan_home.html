@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <script src="{{ static_url('js/loan.js') }}" type="application/javascript"></script>
+    <meta name="Description" content="行业数据">
+    <title>网贷信息</title>
+{% end %}
+
+
+{% block menu_chart %}
+    <div id="container">
+      <div class="main-box">
+        <div class="left-menu">
+          <ul class="menu-list">
+			<li>
+			  <a onclick="req_loan('成交人气指数')">成交人气指数</a>
+			</li>
+			<li>
+			  <a onclick="req_loan('平台数量')">平台数量</a>
+			</li>
+			<li>
+			  <a onclick="req_loan('区域分布')">区域分布</a>
+			</li>
+			<li >
+			  <a onclick="req_loan('行业成交量')">行业成交量</a>
+			</li>
+			<li >
+			  <a onclick="req_loan('行业人气')">行业人气</a>
+			</li>
+			<li >
+			  <a onclick="req_loan('行业参考率')">行业参考率</a>
+			</li>
+			<li >
+			  <a onclick="req_loan('行业期限')">行业期限</a>
+			</li>
+		  </ul>
+        </div>
+       </div>
+    </div>
+    <div id="main" style="width:650px;height:350px;margin:0 auto;"></div>
+    <script type="text/javascript">myCharts({% raw chart_data %})</script>
+
+{% end %}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    {% block header %}
+      <meta name="Description" content="行业数据">
+      <title>行业数据</title>
+    {% end %}
+    
+    <script src="{{ static_url('js/echarts.js') }}" type="application/javascript"></script>
+    <script src="{{ static_url('js/loan.js') }}" type="application/javascript"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- <script src="{{ static_url('js/jquery-2.1.0.min.js') }}" type="application/javascript"></script> -->
+    <link rel="stylesheet" type="text/css" href="{{ static_url('css/loan.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ static_url('css/reset.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ static_url('css/style.css') }}">
+    
+    <script type="text/javascript">
+    </script>
+    </head>
+
+  {% block page_content %}
+  <body>
+    {% block bar %}
+      <div class="lab-top clearfix">
+        <div class="lab-header">
+          <div class="lab-nav">
+            <div class="tabItemWrapper">
+              <div class="tabItem">
+                <a href='./loan_home.html'>
+                  <span>行业信息</span>
+                </a>
+              </div>
+              <div class="tabItem">
+                <a href='./news.html'>
+                  <span>热点信息</span>
+                </a>
+              </div>
+              <div class="tabItem">
+                <a onclick="alert('股票信息')" h>
+                  <span>股票信息</span>
+                </a>
+              </div>
+              <div class="tabItem">
+                <a href="app.html">
+                  <span>app排行信息</span>
+                </a>
+              </div>
+              <div class="tabItem">
+                <a href='./zhishu.html'>
+                  <span>指数信息</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% end %}
+    
+    {% block menu_chart %}
+        <div id="container">
+            <div class="main-box">
+          <div class="left-menu">
+            <ul class="menu-list">
+              <li><a onclick="myCharts('搜索热度');">搜索热度</a></li>
+              <li><a onclick="myCharts('微信热度');">微信热度</a></li>
+            </ul>
+          </div>
+        </div>
+        </div>
+        {% block chart %}
+            <div id="main"></div>
+            <script type="text/javascript">myCharts({% raw chart_data %})</script>
+        {% end %}
+    {% end %}
+
+        
+  </body>
+{% end %}
+
+</html>

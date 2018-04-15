@@ -1,0 +1,57 @@
+/*图表*/
+#main{
+        /*width:500px;*/
+        /*height:350px;*/
+        /*margin:0 auto;*/
+        width:750px;
+        height:350px;
+        margin:0 auto;
+        /*border: 25px solid green;*/
+        /*background-color: red;*/
+   }
+
+.new{
+    width:650px;
+    height:500px;
+    margin:0 auto;
+    border:2px solid #F0F1F2;
+    /*background-color:red;*/
+}
+
+.rank{
+    padding-top: 15px;
+}
+
+.rank a:link {
+    color: #41465b;
+    text-decoration:none;}
+.rank a:active{
+    color: darkorange;
+}
+.rank a:visited{
+    /*color: red;*/
+    text-decoration:none;
+}
+.rank a:hover{
+    color: darkorange;
+}
+
+.tabItem a:link {
+    color: #41465b;
+    text-decoration:none;}
+.tabItem a:active{
+    color: darkorange;
+}
+.tabItem a:visited{
+    /*color: red;*/
+    text-decoration:none;
+}
+.tabItem a:hover{
+    color: darkorange;
+}
+
+
+/*未访问：蓝色、无下划线   */
+/*a:active:{color: red; } //激活：红色   */
+/*a:visited {color:purple;text-decoration:none;} //已访问：紫色、无下划线   */
+/*a:hover {color: red; text-decoration:underline;} //鼠标移近：红色、下划线   */

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <meta name="Description" content="行业数据">
+    <title>指数信息</title>
+<style>
+    .info{
+        width:750px;
+        height:120px;
+        float:left;
+        padding-top: 5px;
+    }
+    .menu_zhishu{
+        text-decoration: none;  /*去掉前面的圆点*/
+        list-style: none;
+        float: left;
+        border: 20px solid ;
+        border-color: white;
+    }
+
+    .menu_zhishu a:link {
+    color: #41465b;
+    text-decoration:none;}
+    .menu_zhishu a:active{
+        color: darkorange;
+    }
+    .menu_zhishu a:visited{
+        /*color: red;*/
+        text-decoration:none;
+    }
+    .menu_zhishu a:hover{
+        color: darkorange;
+    }
+</style>
+{% end %}
+
+{% block chart %}
+    <div class="page-header info">
+        <h6 style="color: grey; padding-left: 2px; padding-top: 2px;">指数概况</h6>
+        <hr>
+        <hr>
+        <div class="contain" >
+        <div class="table-responsive" style="padding-top: 2px;">
+            <table class="table table-striped" style="background-color: white;">
+                <thead>
+                    <tr>
+                        <th>关键字</th>
+                        <th>整体搜索指数</th>
+                        <th>整体同比</th>
+                        <th>整体环比</th>
+                        <th>移动搜索指数</th>
+                        <th>移动同比</th>
+                        <th>移动环比</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="color: #a4a4a4; background-color: white">
+                        <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis; align-content: center;">微贷网</td>
+                        <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis; align-content: center">2017</td>
+                        <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">23.9%</td>
+                        <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">-3.2%</td>
+                        <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">1127</td>
+                        <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">11.2%</td>
+                        <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">-4.6%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <h6 style="color: grey; padding-left: 2px; padding-top: 5px; padding-bottom: 5px;">指数趋势</h6>
+    <div style="width:750px;height:60px;float:left;background-color: white">
+        <ul>
+            <li class="menu_zhishu">
+			  <a href="javascript:void(0);" onclick="req_loan('移动趋势')">整体趋势</a>
+			</li>
+			<li class="menu_zhishu" onclick="req_loan('移动趋势')">
+			  <a href="javascript:void(0);">PC趋势</a>
+			</li>
+            <li class="menu_zhishu">
+			  <a href="javascript:void(0);" onclick="req_loan('移动趋势')">移动趋势</a>
+			</li>
+        </ul>
+    </div>
+
+    <div id="main", style="float:left;background-color: white"></div>
+    <script type="text/javascript">myCharts({% raw chart_data %})</script>
+{% end %}
+
+
+
