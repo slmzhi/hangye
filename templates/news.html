@@ -1,17 +1,11 @@
 {% extends "base.html" %}
 
-
 {% block header %}
     <meta name="Description" content="行业数据">
     <title>热点新闻</title>
 <style>
-    {#.tabItem{#}
-    {##}
-    {#}#}
-
 </style>
 {% end %}
-
 
 {% block menu_chart %}
     <div id="container">
@@ -39,7 +33,6 @@
             {% for data in chart_data %}
             <li class="rank">
                 <a href={{ data.values()[0] }}>{{ data.keys()[0] }}</a>
-{#                <a style="font-size: 20px; " href={{ data.values()[0] }}>{{ data.keys()[0] }}</a>#}
             </li>
             {% end %}
         </div>

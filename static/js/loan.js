@@ -39,9 +39,9 @@ function myCharts(data){
             show: true,
             realtime: true,
             y: 36,
-            height: 20,
-            start: 20,
-            end: 80
+            height: 25,
+            start: data['start'],
+            end: data['end']
         },
     };
 
@@ -59,8 +59,8 @@ function myCharts(data){
     myChart.setOption(option);
 }
 
-function req_loan(loan_type){
-     $.post("/ajax",{message: loan_type,web: 'loan'}, function(data,status){
+function req_loan(loan_type, web){
+     $.post("/ajax",{message: loan_type,web: web}, function(data,status){
         if(status == "success")
         {
             myCharts(data)

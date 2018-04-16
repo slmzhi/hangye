@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <meta name="Description" content="行业数据">
+    <title>股票信息</title>
+<style>
+</style>
+{% end %}
+
+{% block menu_chart %}
+<script>
+    function search(web) {
+        var msg = document.getElementById("search").value
+        if (msg.trim().length = 0){
+            alert('为空')
+            return
+        }
+        $.post("/ajax",{message: msg, web:web}, function(data,status){
+        if(status == "success")
+        {
+            document.getElementById("stock").style = 'display:inline;';
+            var p = document.getElementById("stock_body");
+            var f_n = document.getElementById('stock_tr');
+            p.removeChild(f_n)
+            var n = document.createElement('tr');
+            n.setAttribute("id", "stock_tr")
+            for (var d in data["data"]) {
+                var n_td = document.createElement('td');
+                if(d==9){
+                     n_td.innerHTML = data["data"][d]/10000
+                }
+                else{
+                    n_td.innerHTML = data["data"][d]
+                }
+
+                n.appendChild(n_td);
+            }
+            p.appendChild(n);
+        }
+        else
+        {
+            alert("Ajax 失败");
+        }
+    });
+
+    }
+
+</script>
+<h2 style="padding-top: 50px; text-align: center;color: GrayText">股票查询</h2>
+<div class="container" style="padding-top: 30px;width: 800px">
+    <div class="input-group">
+        <input id="search" type="text" class="form-control input-lg" placeholder="输入股票码">
+            <span class="input-group-addon btn btn-primary" style="background-color: #1b2449" onclick="search('stock')">搜索</span>
+    </div>
+    <div style="padding-top: 40px;">
+        <div id="stock"  style="display:none">
+            <table class="table table-bordered" style="background-color: white;">
+                <thead>
+                    <tr>
+                        <th>股票名字</th>
+                        <th>今日开盘价</th>
+                        <th>昨日开盘价</th>
+                        <th>当前价格</th>
+                        <th>今日最高价格</th>
+                        <th>今日最低价</th>
+                        <th>竞买价</th>
+                        <th>竞卖价</th>
+                        <th>成交的股票数</th>
+                        <th>成交金额(万元)</th>
+                    </tr>
+                </thead>
+                <tbody id="stock_body">
+                    <tr id="stock_tr">
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% end %}

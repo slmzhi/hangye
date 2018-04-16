@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-
+import re
 import os
 import json
 import random
@@ -10,6 +10,8 @@ import tornado.web
 from pymongo import MongoClient
 
 from tornado.options import define, options
+import requests
+
 define("port", default=8000, help="run on the given port", type=int)
 
 client=MongoClient('localhost',27017)
@@ -36,12 +38,14 @@ def loan_info(argu):
             "legend": ["人气指数", "成交指数"],
             "xAxis": date,
             "series": {"人气指数": popularity,
-                       "成交指数": volume}}
+                       "成交指数": volume},
+            "start": 60,
+            "end": 80}
     return _dic
 
 
 def new_info(argu):
-    with open('./wang.html', 'r') as f:
+    with open('./html/wang.html', 'r') as f:
         data = f.read()
     from lxml import html
     doc = html.fromstring(data)
@@ -71,14 +75,18 @@ class LoanHandler(tornado.web.RequestHandler):
         elif param in ['news.html', 'news']:
             data = new_info(u'网贷之家')['data']
         elif param in ['app.html', 'app']:
-            with open('./app.json','r') as f:
+            with open('./html/app.json','r') as f:
                 data = json.loads(f.read())['datas']['list']
         elif param in ['zhishu.html', 'zhishu']:
             data = {"title": "微贷网",
                     "legend": ["微贷网"],
-                    "xAxis": ["周一","周二","周三","周四"],
-                    "series": {"微贷网": [10, 12, 21, 54, 260, 830, 710]}}
+                    "xAxis": ["周一","周二","周三","周四","周五","周六","周日"],
+                    "series": {"微贷网": [10, 12, 21, 54, 260, 830, 710]},
+                    "start": 20,
+                    "end": 80}
             data = json.dumps(data)
+        elif param in ['stock.html', 'stock']:
+            data = {}
         self.render('templates/%s' % param, chart_data=data)
 
 
@@ -93,11 +101,25 @@ class AjaxHandler(tornado.web.RequestHandler):
             data = loan_info(argu)
         elif web == 'new':
             data = new_info(argu)
+        elif web == 'zhishu':
+            data = {"title": "微贷网",
+                    "legend": ["微贷网"],
+                    "xAxis": ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+                    "series": {"微贷网": []},
+                    "start": 20,
+                    "end": 80}
+            if argu == u'搜索热度':
+                data['series']['\xe5\xbe\xae\xe8\xb4\xb7\xe7\xbd\x91'].extend([10, 12, 21, 54, 260, 830, 710])
+            elif argu == u'微信热度':
+                data['series']['\xe5\xbe\xae\xe8\xb4\xb7\xe7\xbd\x91'].extend([20, 22, 41, 374, 160, 230, 110])
+        elif web == 'stock':
+            res = requests.get('http://hq.sinajs.cn/list=%s'%argu.strip()).content
+            stock_info = re.findall('"(.*?)"', res)[0]
+            list_info = stock_info.split(',')
+            list_info[0] = list_info[0].decode('gbk')
+            data = {'data': list_info[:10]}
 
         self.write(data)
-
-    def get(self):
-        self.write('ok')
 
 
 if __name__ == "__main__":
@@ -112,6 +134,5 @@ if __name__ == "__main__":
     )
 
     http_server = tornado.httpserver.HTTPServer(app)
-    
     http_server.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
